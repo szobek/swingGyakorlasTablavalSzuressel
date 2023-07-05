@@ -12,9 +12,16 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.JSpinner;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+import javax.swing.JEditorPane;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class App {
-
+public static int spinnerVal;
 	private JFrame frame;
 	List<Tanulo> tanulok = new ArrayList<Tanulo>();
 	private JTable table;
@@ -88,6 +95,16 @@ public class App {
 		getAllData();
 		table.getColumnModel().getColumn(0).setPreferredWidth(250);
 		scrollPane.setViewportView(table);
+		
+		JSpinner spinner = new JSpinner();
+		spinner.addChangeListener(new SpnnerChangeEventListener());
+		spinner.setBounds(160, 230, 69, 20);
+		frame.getContentPane().add(spinner);
+		
+		JLabel lblNewLabel = new JLabel("Irodalom");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(93, 230, 74, 14);
+		frame.getContentPane().add(lblNewLabel);
 
 	}
 
@@ -122,5 +139,24 @@ public class App {
 			dm.removeRow(i);
 		}
 	}
+	
+	public static void getRowsByFilter() {
+		/*
+		new App().removeAllRows();
+		for (Tanulo tanulo : tanulok) {
+			if (tanulo.getIrodalom() > value) {
+				Object[] o = new Object[4];
+				o[0] = tanulo.getName();
+				o[1] = tanulo.getIrodalom();
+				o[2] = tanulo.getMatek();
+				o[3] = tanulo.getAzonosito();
+				model.addRow(o);
+			}
 
+
+
+		}
+		*/		
+		
+	}
 }
