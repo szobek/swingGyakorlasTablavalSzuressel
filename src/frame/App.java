@@ -152,7 +152,7 @@ public static int spinnerVal;
 	public void getRowsByFilter(int value) {
 		removeAllRows();
 		for (Tanulo tanulo : tanulok) {
-			if (tanulo.getIrodalom() > value) {
+			if (tanulo.getIrodalom() >= value) {
 				Object[] o = new Object[4];
 				o[0] = tanulo.getName();
 				o[1] = tanulo.getIrodalom();
