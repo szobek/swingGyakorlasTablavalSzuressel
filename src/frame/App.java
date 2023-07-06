@@ -10,6 +10,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.JSpinner;
@@ -97,7 +99,14 @@ public static int spinnerVal;
 		scrollPane.setViewportView(table);
 		
 		JSpinner spinner = new JSpinner();
-		spinner.addChangeListener(new SpnnerChangeEventListener());
+		spinner.addChangeListener(new ChangeListener() {
+			
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				getRowsByFilter((int)spinner.getValue());
+				
+			}
+		});
 		spinner.setBounds(160, 230, 69, 20);
 		frame.getContentPane().add(spinner);
 		
@@ -140,9 +149,8 @@ public static int spinnerVal;
 		}
 	}
 	
-	public static void getRowsByFilter() {
-		/*
-		new App().removeAllRows();
+	public void getRowsByFilter(int value) {
+		removeAllRows();
 		for (Tanulo tanulo : tanulok) {
 			if (tanulo.getIrodalom() > value) {
 				Object[] o = new Object[4];
@@ -156,7 +164,6 @@ public static int spinnerVal;
 
 
 		}
-		*/		
 		
 	}
 }
