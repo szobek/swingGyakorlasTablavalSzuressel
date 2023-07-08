@@ -107,6 +107,8 @@ public static int spinnerVal;
 				
 			}
 		});
+		
+
 		spinner.setBounds(160, 230, 69, 20);
 		frame.getContentPane().add(spinner);
 		
@@ -141,12 +143,13 @@ public static int spinnerVal;
 		}
 	}
 
-	private void removeAllRows() {
+	public int removeAllRows() {
 		DefaultTableModel dm = (DefaultTableModel) table.getModel();
 		int rowCount = dm.getRowCount();
 		for (int i = rowCount - 1; i >= 0; i--) {
 			dm.removeRow(i);
 		}
+		return dm.getRowCount();
 	}
 	
 	public void getRowsByFilter(int value) {
@@ -160,8 +163,6 @@ public static int spinnerVal;
 				o[3] = tanulo.getAzonosito();
 				model.addRow(o);
 			}
-
-
 
 		}
 		
