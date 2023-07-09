@@ -25,6 +25,17 @@ class TableTest {
 	
 	
 	
+	@Test
+	void existTableTest() {
+		App app = new App();
+//assertTrue(app.table.getParent()==app.frame);
+assertTrue(app.table.getParent()==app.sp);
+	}
+	
+	
+	
+	
+	
 	
 	
 	

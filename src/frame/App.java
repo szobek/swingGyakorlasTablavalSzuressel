@@ -1,7 +1,9 @@
 package frame;
 
 import java.awt.EventQueue;
+import java.awt.LayoutManager;
 import java.awt.Rectangle;
+import java.awt.ScrollPane;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,12 +23,13 @@ import javax.swing.SwingConstants;
 
 public class App {
 public static int spinnerVal;
-	private JFrame frame;
+	public JFrame frame;
 	List<Tanulo> tanulok = new ArrayList<Tanulo>();
-	private JTable table;
+	public JTable table;
 	String[][] data;
 	DefaultTableModel model;
-
+	public JScrollPane sp;
+	LayoutManager jl;
 	/**
 	 * Launch the application.
 	 */
@@ -58,13 +61,14 @@ public static int spinnerVal;
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		jl= null;
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		frame.getContentPane().setLayout(jl);
 frame.setTitle("Tanulók");
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(25, 11, 381, 208);
-		frame.getContentPane().add(scrollPane);
+		sp = new JScrollPane();
+		sp.setBounds(25, 11, 381, 208);
+		frame.getContentPane().add(sp);
 
 		table = new JTable();
 
@@ -93,7 +97,7 @@ frame.setTitle("Tanulók");
 		model.setColumnIdentifiers(columnNames);
 		getAllData();
 		table.getColumnModel().getColumn(0).setPreferredWidth(250);
-		scrollPane.setViewportView(table);
+		sp.setViewportView(table);
 		
 		JSpinner spinner = new JSpinner();
 		spinner.addChangeListener(new ChangeListener() {
@@ -152,7 +156,7 @@ frame.setTitle("Tanulók");
 		return dm.getRowCount();
 	}
 	
-	public void getRowsByFilter(int value) {
+	private void getRowsByFilter(int value) {
 		removeAllRows();
 		for (Tanulo tanulo : tanulok) {
 			if (tanulo.getIrodalom() >= value) {
@@ -168,6 +172,8 @@ frame.setTitle("Tanulók");
 		
 	}
 	
+	// to test
+	
 	public String getFrameTitle() {
 		return frame.getTitle();
 	}
@@ -177,7 +183,17 @@ frame.setTitle("Tanulók");
 		
 	}
 	
-	public int getFraneCloseOperation() {
+	public int getCloseOperation() {
 		return frame.getDefaultCloseOperation();
 	}
+	
+	public String getFrameLayout() {
+		LayoutManager layout =frame.getContentPane().getLayout();
+		if(layout==null) {
+			return "null";
+		} else {
+		return layout.toString(); 
+		}
+	}
+	
 }

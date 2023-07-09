@@ -30,7 +30,16 @@ class FrameTest {
 	@Test
 	void closeTest() {
 		App app = new App();
-		assertEquals(app.getFraneCloseOperation(),3);
+		assertEquals(app.getCloseOperation(),3);
 	}
+	
+	
+	@Test
+	void layoutTest() {
+		App app = new App();
+		assertEquals(app.getFrameLayout(),"null");
+	}
+	
+	
 
 }
