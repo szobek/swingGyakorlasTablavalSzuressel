@@ -29,16 +29,6 @@ class TableTest {
 	void existTableTest() {
 		App app = new App();
 //assertTrue(app.table.getParent()==app.frame);
-assertTrue(app.table.getParent()==app.sp);
+assertTrue(app.table.getParent().equals(app.scrollPane));
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
 }

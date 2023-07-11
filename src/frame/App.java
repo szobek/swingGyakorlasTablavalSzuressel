@@ -22,14 +22,15 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 public class App {
-public static int spinnerVal;
+	public static int spinnerVal;
 	public JFrame frame;
 	List<Tanulo> tanulok = new ArrayList<Tanulo>();
 	public JTable table;
 	String[][] data;
 	DefaultTableModel model;
-	public JScrollPane sp;
-	LayoutManager jl;
+	public JScrollPane scrollPane;
+	LayoutManager layoutManager;
+
 	/**
 	 * Launch the application.
 	 */
@@ -61,14 +62,14 @@ public static int spinnerVal;
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		jl= null;
+		layoutManager = null;
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(jl);
-frame.setTitle("Tanulók");
-		sp = new JScrollPane();
-		sp.setBounds(25, 11, 381, 208);
-		frame.getContentPane().add(sp);
+		frame.getContentPane().setLayout(layoutManager);
+		frame.setTitle("Tanulók");
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(25, 11, 381, 208);
+		frame.getContentPane().add(scrollPane);
 
 		table = new JTable();
 
@@ -97,22 +98,21 @@ frame.setTitle("Tanulók");
 		model.setColumnIdentifiers(columnNames);
 		getAllData();
 		table.getColumnModel().getColumn(0).setPreferredWidth(250);
-		sp.setViewportView(table);
-		
+		scrollPane.setViewportView(table);
+
 		JSpinner spinner = new JSpinner();
 		spinner.addChangeListener(new ChangeListener() {
-			
+
 			@Override
 			public void stateChanged(ChangeEvent e) {
-				getRowsByFilter((int)spinner.getValue());
-				
+				getRowsByFilter((int) spinner.getValue());
+
 			}
 		});
-		
 
 		spinner.setBounds(160, 230, 69, 20);
 		frame.getContentPane().add(spinner);
-		
+
 		JLabel lblNewLabel = new JLabel("Irodalom");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setBounds(93, 230, 74, 14);
@@ -121,14 +121,10 @@ frame.setTitle("Tanulók");
 	}
 
 	public int createStudents() {
-		Tanulo[] tanuloArray = {
-		new Tanulo(1, "Kis Pista", (byte) 2, (byte) 2),
-		new Tanulo(2, "Nagy Elek", (byte) 3, (byte) 2),
-		new Tanulo(3, "Horváth Béla", (byte) 4, (byte) 2),
-		new Tanulo(4, "John Doe", (byte) 41, (byte) 2),
-		new Tanulo(5, "Kovács Fruzsina", (byte) 3, (byte) 2),
-		new Tanulo(6, "Cserepes Virág", (byte) 5, (byte) 2)
-		};
+		Tanulo[] tanuloArray = { new Tanulo(1, "Kis Pista", (byte) 2, (byte) 2),
+				new Tanulo(2, "Nagy Elek", (byte) 3, (byte) 2), new Tanulo(3, "Horváth Béla", (byte) 4, (byte) 2),
+				new Tanulo(4, "John Doe", (byte) 41, (byte) 2), new Tanulo(5, "Kovács Fruzsina", (byte) 3, (byte) 2),
+				new Tanulo(6, "Cserepes Virág", (byte) 5, (byte) 2) };
 		return tanuloArray.length;
 	}
 
@@ -155,7 +151,7 @@ frame.setTitle("Tanulók");
 		}
 		return dm.getRowCount();
 	}
-	
+
 	private void getRowsByFilter(int value) {
 		removeAllRows();
 		for (Tanulo tanulo : tanulok) {
@@ -169,31 +165,31 @@ frame.setTitle("Tanulók");
 			}
 
 		}
-		
+
 	}
-	
+
 	// to test
-	
+
 	public String getFrameTitle() {
 		return frame.getTitle();
 	}
-	
+
 	public Rectangle getFrameBound() {
 		return frame.getBounds();
-		
+
 	}
-	
+
 	public int getCloseOperation() {
 		return frame.getDefaultCloseOperation();
 	}
-	
+
 	public String getFrameLayout() {
-		LayoutManager layout =frame.getContentPane().getLayout();
-		if(layout==null) {
+		LayoutManager layout = frame.getContentPane().getLayout();
+		if (layout == null) {
 			return "null";
 		} else {
-		return layout.toString(); 
+			return layout.toString();
 		}
 	}
-	
+
 }
