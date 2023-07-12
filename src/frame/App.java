@@ -22,13 +22,13 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 public class App {
-	public static int spinnerVal;
-	public JFrame frame;
+	private static int spinnerVal;
+	private JFrame frame;
 	List<Tanulo> tanulok = new ArrayList<Tanulo>();
-	public JTable table;
+	private JTable table;
 	String[][] data;
-	DefaultTableModel model;
-	public JScrollPane scrollPane;
+	public DefaultTableModel model;
+	private JScrollPane scrollPane;
 	LayoutManager layoutManager;
 
 	/**
@@ -190,6 +190,11 @@ public class App {
 		} else {
 			return layout.toString();
 		}
+	}
+	
+	
+	public boolean existTable() {
+		return table.getParent().equals(scrollPane.getViewport());
 	}
 
 }
