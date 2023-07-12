@@ -5,6 +5,7 @@ public class Tanulo {
 	private byte irodalom;
 	private byte matek;
 	private int azonosito;
+	
 	public Tanulo(int azonosito,String name, byte irodalom, byte matek) {
 		this.name = name;
 		this.irodalom = irodalom;
