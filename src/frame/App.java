@@ -5,6 +5,7 @@ import java.awt.LayoutManager;
 import java.awt.Rectangle;
 import java.awt.ScrollPane;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.JFrame;
@@ -120,25 +121,29 @@ public class App {
 
 	}
 
+	public Tanulo serchUserByID(int ID, List<Tanulo> tanulok) {
+		Tanulo t1 = tanulok.stream().filter(x -> x.getAzonosito() == ID).findFirst().orElse(null);
+		return t1;
+	}
+
 	public int createStudents() {
 		Tanulo[] tanuloArray = { new Tanulo(1, "Kis Pista", (byte) 2, (byte) 2),
 				new Tanulo(2, "Nagy Elek", (byte) 3, (byte) 2), new Tanulo(3, "Horváth Béla", (byte) 4, (byte) 2),
 				new Tanulo(4, "John Doe", (byte) 41, (byte) 2), new Tanulo(5, "Kovács Fruzsina", (byte) 3, (byte) 2),
 				new Tanulo(6, "Cserepes Virág", (byte) 5, (byte) 2) };
+		tanulok = Arrays.asList(tanuloArray);
 		return tanuloArray.length;
 	}
 
 	private void getAllData() {
 		removeAllRows();
 		for (Tanulo tanulo : tanulok) {
-			if (tanulo.getIrodalom() > 0) {
-				Object[] o = new Object[4];
-				o[0] = tanulo.getName();
-				o[1] = tanulo.getIrodalom();
-				o[2] = tanulo.getMatek();
-				o[3] = tanulo.getAzonosito();
-				model.addRow(o);
-			}
+			Object[] o = new Object[4];
+			o[0] = tanulo.getName();
+			o[1] = tanulo.getIrodalom();
+			o[2] = tanulo.getMatek();
+			o[3] = tanulo.getAzonosito();
+			model.addRow(o);
 
 		}
 	}
@@ -167,6 +172,10 @@ public class App {
 		}
 
 	}
+	
+	private void createRow() {
+		
+	}
 
 	// to test
 
@@ -191,8 +200,7 @@ public class App {
 			return layout.toString();
 		}
 	}
-	
-	
+
 	public boolean existTable() {
 		return table.getParent().equals(scrollPane.getViewport());
 	}

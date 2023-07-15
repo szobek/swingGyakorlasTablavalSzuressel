@@ -2,8 +2,6 @@ package frameTests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.awt.Rectangle;
-
 import javax.swing.table.DefaultTableModel;
 
 import org.junit.jupiter.api.Test;
@@ -41,11 +39,11 @@ class TableTest {
 		App app = new App();
 		Tanulo tanulo = new Tanulo(1, "m", (byte)1, (byte)1);
 		DefaultTableModel modelT = app.model;
-		Object[] o = new Object[4];
+		String[] o = new String[4];
 		o[0] = tanulo.getName();
-		o[1] = tanulo.getIrodalom();
-		o[2] = tanulo.getMatek();
-		o[3] = tanulo.getAzonosito();
+		o[1] = String.valueOf(tanulo.getIrodalom()) ;
+		o[2] = String.valueOf(tanulo.getMatek());
+		o[3] = String.valueOf(tanulo.getAzonosito());
 		modelT.addRow(o);
 		assertEquals(1, modelT.getRowCount());
 
