@@ -97,7 +97,8 @@ public class App {
 		});
 
 		model.setColumnIdentifiers(columnNames);
-		getAllData();
+		//getAllData();
+		getRowsByFilter(0);
 		table.getColumnModel().getColumn(0).setPreferredWidth(250);
 		scrollPane.setViewportView(table);
 
@@ -122,8 +123,7 @@ public class App {
 	}
 
 	public Tanulo serchUserByID(int ID, List<Tanulo> tanulok) {
-		Tanulo t1 = tanulok.stream().filter(x -> x.getAzonosito() == ID).findFirst().orElse(null);
-		return t1;
+		return tanulok.stream().filter(x -> x.getAzonosito() == ID).findFirst().orElse(null);
 	}
 
 	public int createStudents() {
@@ -135,18 +135,6 @@ public class App {
 		return tanuloArray.length;
 	}
 
-	private void getAllData() {
-		removeAllRows();
-		for (Tanulo tanulo : tanulok) {
-			Object[] o = new Object[4];
-			o[0] = tanulo.getName();
-			o[1] = tanulo.getIrodalom();
-			o[2] = tanulo.getMatek();
-			o[3] = tanulo.getAzonosito();
-			model.addRow(o);
-
-		}
-	}
 
 	public int removeAllRows() {
 		DefaultTableModel dm = (DefaultTableModel) table.getModel();
@@ -161,20 +149,20 @@ public class App {
 		removeAllRows();
 		for (Tanulo tanulo : tanulok) {
 			if (tanulo.getIrodalom() >= value) {
-				Object[] o = new Object[4];
-				o[0] = tanulo.getName();
-				o[1] = tanulo.getIrodalom();
-				o[2] = tanulo.getMatek();
-				o[3] = tanulo.getAzonosito();
-				model.addRow(o);
+				createRow(tanulo);
 			}
 
 		}
 
 	}
 	
-	private void createRow() {
-		
+	private void createRow(Tanulo tanulo) {
+		String[] o = new String[4];
+		o[0] = tanulo.getName();
+		o[1] = String.valueOf(tanulo.getIrodalom()) ;
+		o[2] = String.valueOf(tanulo.getMatek());
+		o[3] = String.valueOf(tanulo.getAzonosito());
+		model.addRow(o);
 	}
 
 	// to test
