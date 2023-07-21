@@ -22,6 +22,7 @@ import javax.swing.JSpinner;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Color;
+import java.awt.BorderLayout;
 
 public class App {
 	//private static int spinnerVal;
@@ -32,6 +33,7 @@ public class App {
 	public DefaultTableModel model;
 	private JScrollPane scrollPane;
 	LayoutManager layoutManager;
+	private JSpinner spinnerMatek;
 
 	/**
 	 * Launch the application.
@@ -69,6 +71,7 @@ public class App {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(layoutManager);
 		frame.setTitle("Tanulók");
+		frame.getContentPane().setLayout(null);
 		scrollPane = new JScrollPane();
 		scrollPane.setBounds(25, 11, 381, 208);
 		frame.getContentPane().add(scrollPane);
@@ -104,27 +107,44 @@ public class App {
 
 		model.setColumnIdentifiers(columnNames);
 		//getAllData();
-		getRowsByFilter(0);
+		getRowsByFilter(0,0);
 		table.getColumnModel().getColumn(0).setPreferredWidth(250);
 		scrollPane.setViewportView(table);
 
-		JSpinner spinner = new JSpinner();
-		spinner.addChangeListener(new ChangeListener() {
+		JSpinner spinnerIrodalom = new JSpinner();
+		spinnerIrodalom.addChangeListener(new ChangeListener() {
 
 			@Override
 			public void stateChanged(ChangeEvent e) {
-				getRowsByFilter((int) spinner.getValue());
+				getRowsByFilter((int) spinnerIrodalom.getValue(), (int) spinnerMatek.getValue());
 
 			}
 		});
 
-		spinner.setBounds(160, 230, 69, 20);
-		frame.getContentPane().add(spinner);
+		spinnerIrodalom.setBounds(96, 230, 69, 20);
+		frame.getContentPane().add(spinnerIrodalom);
+		
+				JLabel lblIrodalom = new JLabel("Irodalom");
+				frame.getContentPane().add(lblIrodalom);
+				lblIrodalom.setHorizontalAlignment(SwingConstants.CENTER);
+				lblIrodalom.setBounds(25, 236, 74, 14);
+				
+				JLabel lblMatek = new JLabel("Matek");
+				lblMatek.setBounds(233, 233, 46, 14);
+				frame.getContentPane().add(lblMatek);
+				
+				spinnerMatek = new JSpinner();
+				spinnerMatek.setBounds(289, 230, 60, 20);
+				spinnerMatek.addChangeListener(new ChangeListener() {
 
-		JLabel lblNewLabel = new JLabel("Irodalom");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(93, 230, 74, 14);
-		frame.getContentPane().add(lblNewLabel);
+					@Override
+					public void stateChanged(ChangeEvent e) {
+						getRowsByFilter((int) spinnerIrodalom.getValue(), (int) spinnerMatek.getValue());
+
+					}
+				});
+
+				frame.getContentPane().add(spinnerMatek);
 
 	}
 
@@ -133,9 +153,9 @@ public class App {
 	}
 
 	public int createStudents() {
-		Tanulo[] tanuloArray = { new Tanulo(1, "Kis Pista", (byte) 2, (byte) 2),
-				new Tanulo(2, "Nagy Elek", (byte) 3, (byte) 2), new Tanulo(3, "Horváth Béla", (byte) 4, (byte) 2),
-				new Tanulo(4, "John Doe", (byte) 41, (byte) 2), new Tanulo(5, "Kovács Fruzsina", (byte) 3, (byte) 2),
+		Tanulo[] tanuloArray = { new Tanulo(1, "Kis Pista", (byte) 2, (byte) 3),
+				new Tanulo(2, "Nagy Elek", (byte) 3, (byte) 4), new Tanulo(3, "Horváth Béla", (byte) 4, (byte) 4),
+				new Tanulo(4, "John Doe", (byte) 41, (byte) 5), new Tanulo(5, "Kovács Fruzsina", (byte) 3, (byte) 2),
 				new Tanulo(6, "Cserepes Virág", (byte) 5, (byte) 2) };
 		tanulok = Arrays.asList(tanuloArray);
 		return tanuloArray.length;
@@ -151,10 +171,10 @@ public class App {
 		return dm.getRowCount();
 	}
 
-	private void getRowsByFilter(int value) {
+	private void getRowsByFilter(int valueIrodalom, int valueMatek) {
 		removeAllRows();
 		for (Tanulo tanulo : tanulok) {
-			if (tanulo.getIrodalom() >= value) {
+			if (tanulo.getIrodalom() >= valueIrodalom && tanulo.getMatek() >= valueMatek) {
 				createRow(tanulo);
 			}
 
@@ -198,5 +218,4 @@ public class App {
 	public boolean existTable() {
 		return table.getParent().equals(scrollPane.getViewport());
 	}
-
 }
