@@ -21,9 +21,10 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.JSpinner;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import java.awt.Color;
 
 public class App {
-	private static int spinnerVal;
+	//private static int spinnerVal;
 	private JFrame frame;
 	List<Tanulo> tanulok = new ArrayList<Tanulo>();
 	private JTable table;
@@ -73,6 +74,10 @@ public class App {
 		frame.getContentPane().add(scrollPane);
 
 		table = new JTable();
+		table.setSelectionForeground(new Color(0, 102, 102));
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		table.setSelectionBackground(new Color(0, 204, 255));
+		table.setToolTipText("Tanulók");
 
 		String[] columnNames = { "Tanuló neve", "Irodalom", "Matek", "Azonosító" };
 		model = new DefaultTableModel();
@@ -85,7 +90,8 @@ public class App {
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
 
-				if (!e.getValueIsAdjusting()) {
+				if (!e.getValueIsAdjusting() && table.getSelectedRow()  !=-1 ) {
+						
 					StringBuilder row = new StringBuilder();
 					row.append(table.getModel().getValueAt(table.getSelectedRow(), 0).toString() + " irodalom: ");
 					row.append(table.getModel().getValueAt(table.getSelectedRow(), 1).toString());
